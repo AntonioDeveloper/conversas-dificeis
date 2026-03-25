@@ -2,6 +2,8 @@
 
 import { Button } from "../src/components/ui/Button";
 import { Textarea } from "../src/components/ui/TextArea";
+import { Card } from "../src/components/layout/Card";
+import { BioIntelHeader } from "../src/components/layout/Header";
 import * as React from "react";
 
 type Persona = "busy_boss" | "emotional_partner" | "defensive_colleague";
@@ -59,46 +61,64 @@ export default function Treino() {
   }
 
   return (
-    <div className="">
-      <h1 className="">Treino</h1>
-      <label className="">Situação da conversa</label>
-      <Textarea
-        value={situation}
-        onChange={(e) => setSituation(e.target.value)}
-        placeholder="Contexto (ex.: reunião 1:1, feedback, conflito...)"
-      />
-      <label className="">Persona que vai responder</label>
-      <select
-        value={persona}
-        onChange={(e) => setPersona(e.target.value as Persona)}
-        className="border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm w-full outline-none"
-      >
-        <option value="busy_boss">Chefe ocupado</option>
-        <option value="emotional_partner">Parceiro emocional</option>
-        <option value="defensive_colleague">Colega defensivo</option>
-      </select>
-      <label className="">Digite aqui sua mensagem</label>
-      <Textarea
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
-        placeholder="Escreva aqui..."
-      />
-      <Button onClick={handleSend} disabled={isSending || inputText.trim().length === 0}>
-        {isSending ? "Enviando..." : "Enviar"}
-      </Button>
-      {error ? <p className="text-destructive text-sm">{error}</p> : null}
-      <label className="">Possível interpretação do receptor</label>
-      <Textarea
-        value={possibleInterpretation}
-        readOnly
-      />
-      <label className="">Saída</label>
-      <Textarea
-        value={outputText}
-        readOnly
-        placeholder="A resposta vai aparecer aqui..."
-      />
+    <div className="min-h-screen w-full bg-black text-zinc-200 px-6 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="space-y-6">
+          <BioIntelHeader />
+          <Card title="Contexto da conversa" icon className="font-['Space_Grotesk']">
+            <Textarea
+              value={situation}
+              onChange={(e) => setSituation(e.target.value)}
+              placeholder="Descreva o cenário, antecedentes e objetivo..."
+            />
+          </Card>
+          <Card title="Persona" icon className="font-['Space_Grotesk']">
+            <select
+              value={persona}
+              onChange={(e) => setPersona(e.target.value as Persona)}
+              className="border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors md:text-sm w-full outline-none"
+            >
+              <option value="busy_boss">Gestor Ocupado</option>
+              <option value="emotional_partner">Parceiro Emocional</option>
+              <option value="defensive_colleague">Colega Defensivo</option>
+            </select>
+          </Card>
+        </div>
 
+        <div className="lg:col-span-2 space-y-6">
+          <Card
+            title="Entrada de simulação"
+            icon
+            right={
+              <Button onClick={handleSend} disabled={isSending || inputText.trim().length === 0}>
+                {isSending ? "Enviando..." : "Enviar"}
+              </Button>
+            }
+            className="font-['Space_Grotesk']"
+          >
+            <Textarea
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              placeholder="Escreva aqui sua fala para simular a reação..."
+            />
+            {error ? <p className="text-destructive text-sm mt-2">{error}</p> : null}
+          </Card>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card title="Possível interpretação" icon className="font-['Space_Grotesk']">
+              <Textarea value={possibleInterpretation} readOnly placeholder="Aguardando análise da API..." />
+            </Card>
+            <Card title="Respostas possíveis" icon className="font-['Space_Grotesk']">
+              <Textarea value={outputText} readOnly placeholder="Aguardando entrada para gerar sugestões..." />
+            </Card>
+          </div>
+
+          <div className="flex items-center justify-between text-xs text-zinc-500">
+            <span>Modelo: BIO-INTEL-LARGE-v3</span>
+            <span>Latência: {isSending ? "..." : "- ms"}</span>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
