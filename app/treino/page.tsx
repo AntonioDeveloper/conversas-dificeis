@@ -30,7 +30,7 @@ export default function Treino() {
 
       const json = (await res.json().catch(() => null)) as
         | null
-        | { ok?: unknown; result?: { interpretation?: unknown; emotionalInterpretation?: unknown, reply?: unknown }; error?: unknown };
+        | { ok?: unknown; result?: { interpretation?: unknown; emotionalInterpretation?: unknown; reply?: unknown; replyOptions?: unknown }; error?: unknown };
 
       if (!res.ok) {
         const message =
@@ -41,16 +41,39 @@ export default function Treino() {
       }
 
       const reply = json?.result?.reply;
+      const replyOptions = json?.result?.replyOptions;
       const interpretation = json?.result?.interpretation;
       const emotionalInterpretation = json?.result?.emotionalInterpretation;
 
       console.log("interpretation", interpretation);
 
-      if (typeof reply !== "string") throw new Error("Resposta inválida do servidor.");
+      const normalizedReplyOptions =
+        Array.isArray(replyOptions)
+          ? replyOptions
+              .filter((x): x is string => typeof x === "string")
+              .map((x) => x.trim())
+              .filter((x) => x.length > 0)
+          : [];
 
-      if (typeof emotionalInterpretation === "string" && emotionalInterpretation.trim().length > 0) {
-        setPossibleInterpretation(emotionalInterpretation.trim());
+      const resolvedInterpretation =
+        typeof emotionalInterpretation === "string" && emotionalInterpretation.trim().length > 0
+          ? emotionalInterpretation.trim()
+          : typeof interpretation === "string" && interpretation.trim().length > 0
+          ? interpretation.trim()
+          : "";
+
+      setPossibleInterpretation(resolvedInterpretation);
+
+      if (normalizedReplyOptions.length > 0) {
+        const numbered = normalizedReplyOptions
+          .slice(0, 4)
+          .map((text, idx) => `${idx + 1}) ${text}`)
+          .join("\n\n");
+        setOutputText(numbered);
+        return;
       }
+
+      if (typeof reply !== "string") throw new Error("Resposta inválida do servidor.");
       setOutputText(reply);
     } catch (e) {
       const message = e instanceof Error ? e.message : "Erro desconhecido.";
