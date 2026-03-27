@@ -88,7 +88,9 @@ app.post('/enviar-mensagem', (req, res) => {
   const normalizedPersona: Persona =
     persona === 'busy_boss' ||
     persona === 'emotional_partner' ||
-    persona === 'defensive_colleague'
+    persona === 'defensive_colleague' ||
+    persona === 'collaborative_coworker' ||
+    persona === 'demanding_client'
       ? persona
       : 'busy_boss';
 

@@ -5,9 +5,10 @@ import { Textarea } from "../src/components/ui/TextArea";
 import { Card } from "../src/components/layout/Card";
 import { BioIntelHeader } from "../src/components/layout/Header";
 import { Spinner } from "../src/components/ui/Spinner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../src/components/ui/select";
 import * as React from "react";
 
-type Persona = "busy_boss" | "emotional_partner" | "defensive_colleague";
+type Persona = "busy_boss" | "emotional_partner" | "defensive_colleague" | "collaborative_coworker" | "demanding_client";
 
 export default function Treino() {
   const [inputText, setInputText] = React.useState("");
@@ -100,18 +101,18 @@ export default function Treino() {
             <div className="mt-2 text-xs text-zinc-400">Dica: seja específico sobre o objetivo e o histórico recente.</div>
           </Card>
           <Card title="Persona" icon className="font-['Space_Grotesk']">
-            <select
-              value={persona}
-              name="persona"
-              onChange={(e) => setPersona(e.target.value as Persona)}
-              className="border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors md:text-sm w-full outline-none"
-            >
-              <option value="busy_boss">Gestor Ocupado</option>
-              <option value="emotional_partner">Parceiro Emocional</option>
-              <option value="defensive_colleague">Colega Defensivo</option>
-              <option value="collaborative_coworker">Colega Prestativo</option>
-              <option value="demanding_client">Cliente Exigente</option>
-            </select>
+            <Select value={persona} name="persona" onValueChange={(value) => setPersona(value as Persona)}>
+              <SelectTrigger className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent position="popper" className="w-[var(--radix-select-trigger-width)]">
+                <SelectItem value="busy_boss">Gestor Ocupado</SelectItem>
+                <SelectItem value="emotional_partner">Parceiro Emocional</SelectItem>
+                <SelectItem value="defensive_colleague">Colega Defensivo</SelectItem>
+                <SelectItem value="collaborative_coworker">Colega Prestativo</SelectItem>
+                <SelectItem value="demanding_client">Cliente Exigente</SelectItem>
+              </SelectContent>
+            </Select>
             <div className="mt-2 text-xs text-zinc-400">
               Altere a persona para variar tom e estratégia da resposta.
             </div>
