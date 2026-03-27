@@ -102,12 +102,15 @@ export default function Treino() {
           <Card title="Persona" icon className="font-['Space_Grotesk']">
             <select
               value={persona}
+              name="persona"
               onChange={(e) => setPersona(e.target.value as Persona)}
               className="border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors md:text-sm w-full outline-none"
             >
               <option value="busy_boss">Gestor Ocupado</option>
               <option value="emotional_partner">Parceiro Emocional</option>
               <option value="defensive_colleague">Colega Defensivo</option>
+              <option value="collaborative_coworker">Colega Prestativo</option>
+              <option value="demanding_client">Cliente Exigente</option>
             </select>
             <div className="mt-2 text-xs text-zinc-400">
               Altere a persona para variar tom e estratégia da resposta.
@@ -118,15 +121,11 @@ export default function Treino() {
         <div className="lg:col-span-2 space-y-6">
           <Card
             title="Entrada de simulação"
-            icon
-            right={
-              <Button onClick={handleSend} disabled={isSending || inputText.trim().length === 0}>
-                {isSending ? <span className="inline-flex items-center gap-2"><Spinner className="size-4" /> Enviando...</span> : "Enviar"}
-              </Button>
-            }
+           
             className="font-['Space_Grotesk']"
           >
             <Textarea
+            className="mb-2"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Escreva aqui sua fala para simular a reação..."
@@ -136,7 +135,11 @@ export default function Treino() {
                   handleSend();
                 }
               }}
-            />
+            />             
+              <Button onClick={handleSend} disabled={isSending || inputText.trim().length === 0}>
+                {isSending ? <span className="inline-flex items-center gap-2"><Spinner className="size-4" /> Enviando...</span> : "Enviar"}
+              </Button>
+          
             {error ? <p className="text-destructive text-sm mt-2">{error}</p> : null}
           </Card>
 

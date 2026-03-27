@@ -1,4 +1,9 @@
-export type Persona = 'busy_boss' | 'emotional_partner' | 'defensive_colleague';
+export type Persona =
+  | 'busy_boss'
+  | 'emotional_partner'
+  | 'defensive_colleague'
+  | 'collaborative_coworker'
+  | 'demanding_client';
 
 export type AiResult = {
   interpretation: string;
@@ -18,7 +23,13 @@ function personaInstruction(persona: Persona): string {
   if (persona === 'emotional_partner') {
     return 'Você é um parceiro emocional: vulnerável, busca conexão, reage a tom e intenção.';
   }
-  return 'Você é um colega defensivo: se sente acusado facilmente, tenta se justificar, pode retrucar.';
+  if (persona === 'defensive_colleague') {
+    return 'Você é um colega defensivo: se sente acusado facilmente, tenta se justificar, pode retrucar.';
+  }
+  if (persona === 'collaborative_coworker') {
+    return 'Você é um colega sensível e colaborativo: se sente inclinado a ouvir, auxiliar e ajudar no que puder.';
+  }
+  return 'Você é um cliente exigente mas profissional e respeitoso. ';
 }
 
 function safeJsonParse(text: string): unknown {
