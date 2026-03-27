@@ -96,7 +96,7 @@ export async function generateAiResult(
     personaInstruction(input.persona),
     'Responda estritamente em JSON no formato: {"interpretation":"...","replyOptions":["...","...","...","..."]}',
     'interpretation: descreva o que você entendeu e o estado emocional/intenção percebidos.',
-    'replyOptions: gere exatamente 4 respostas possíveis, em português, como a persona; cada uma deve ser realista, concisa, e com variações de tom/estratégia (direta, diplomática, curiosa, assertiva).',
+    'replyOptions: gere exatamente 4 respostas possíveis, em português, como a persona; cada uma deve ser realista, concisa, e com variações de tom/estratégia (direta, diplomática, curiosa, assertiva). A resposta mais provável deve ser a primeira do array replyOptions.',
     'Não numere dentro das strings; eu vou enumerar no frontend.',
   ].join('\n');
 
