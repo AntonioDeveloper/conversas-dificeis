@@ -13,7 +13,7 @@ export default function Home() {
         </p>
         <div className="mt-8">
           <Link href="/treino">
-            <Button size="lg">Ir para o treino</Button>
+            <Button size="lg" className="">Ir para o treino</Button>
           </Link>
         </div>
       </main>
