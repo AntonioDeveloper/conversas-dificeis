@@ -3,7 +3,7 @@
 import { Button } from "../src/components/ui/Button";
 import { Textarea } from "../src/components/ui/TextArea";
 import { Card } from "../src/components/layout/Card";
-import { BioIntelHeader } from "../src/components/layout/Header";
+import { Header } from "../src/components/layout/Header";
 import { Spinner } from "../src/components/ui/Spinner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../src/components/ui/select";
 import * as React from "react";
@@ -91,7 +91,7 @@ export default function Treino() {
     <div className="min-h-screen w-full bg-black text-zinc-200 px-6 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="space-y-6">
-          <BioIntelHeader />
+          <Header />
           <Card title="Contexto da conversa" icon className="font-['Space_Grotesk']">
             <Textarea
               value={situation}
@@ -145,7 +145,7 @@ export default function Treino() {
           </Card>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card title="Possível interpretação" icon className="font-['Space_Grotesk']">
+            <Card title="Possível interpretação do receptor" icon className="font-['Space_Grotesk']">
               <Textarea value={possibleInterpretation} readOnly placeholder="Aguardando análise da API..." />
             </Card>
             <Card title="Respostas possíveis" icon className="font-['Space_Grotesk']">
@@ -178,11 +178,6 @@ export default function Treino() {
                 </div>
               )}
             </Card>
-          </div>
-
-          <div className="flex items-center justify-between text-xs text-zinc-500">
-            <span>Modelo: BIO-INTEL-LARGE-v3</span>
-            <span>Latência: {isSending ? "..." : latencyMs !== null ? `${latencyMs} ms` : "- ms"}</span>
           </div>
         </div>
       </div>

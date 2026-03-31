@@ -9,7 +9,7 @@ export default function Home() {
           Conversas Difíceis
         </h1>
         <p className="mt-3 text-zinc-400">
-          Treine abordagens, ajuste o tom e receba opções de resposta com o simulador BIO-INTEL.
+          Treine abordagens e receba opções de resposta com o nosso simulador.
         </p>
         <div className="mt-8">
           <Link href="/treino">
