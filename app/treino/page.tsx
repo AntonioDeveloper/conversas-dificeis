@@ -28,7 +28,7 @@ export default function Treino() {
 
     try {
       t0 = performance.now();
-      const res = await fetch("http://localhost:3001/enviar-mensagem", {
+      const res = await fetch(process.env.CORS_ORIGIN || "http://localhost:3001/enviar-mensagem", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ text: inputText, situation, persona }),
