@@ -1,7 +1,7 @@
 ## Conversas Difíceis (Difficult Conversations)
 An AI tool that helps you understand how your message might be perceived before sending it.
 
-![Print of the project](https://github.com/AntonioDeveloper/conversas-dificeis/public/assets/images/printscreen.png)
+![Print of the project](https://github.com/AntonioDeveloper/conversas-dificeis/public/assets/images/printscreen.jpg)
 
 ## 🚀 Live Demo
 
